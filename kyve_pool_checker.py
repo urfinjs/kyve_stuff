@@ -17,7 +17,7 @@ def list_lowest_stakes_from_pools():
     lowest_stake = 999_999_999_999_999
 
     for pool_id in POOLS_BY_ID:
-        print(f'\n{POOLS_NAMES_BY_ID[pool_id]}')
+        print(f'\n{pool_id} {POOLS_NAMES_BY_ID[pool_id]}')
         r = requests.get(KYVE_POOL_VALIDATORS_URL.format(pool_id), timeout=5)
         if r.status_code != 200:
             print(r)
@@ -52,7 +52,7 @@ def main(stake_threshold):
 
 if __name__ == '__main__':
     try:
-        threshold = int(input("STAKE THRESHOLD: "))
+        threshold = int(input("STAKE THRESHOLD: ")) * 1_000_000_000
         main(threshold)
     except Exception as global_err:
         print(f"{global_err}\n\nEXITING in 10s")
