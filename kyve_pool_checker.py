@@ -27,12 +27,11 @@ def list_lowest_stakes_from_pools():
 
         for val_acc, stake in sorted(validators.items(), key=lambda x: x[1])[:VALIDATORS_SHOW]:
             lowest_stake = stake if stake < lowest_stake else lowest_stake
-            if val_acc in MY_ACCOUNTS:
-                found_my_acc = True
-                extra = " >>> Me!"
-            else:
-                extra = ""
-            print(f"{val_acc} {stake:>20,}{extra}")
+            is_my_acc = " >>> Me!" if val_acc in MY_ACCOUNTS else ""
+            print(f"{val_acc} {stake:>20,}{is_my_acc}")
+
+        if not found_my_acc and any(my_acc in validators for my_acc in MY_ACCOUNTS):
+            found_my_acc = True
 
     return found_my_acc, lowest_stake
 
